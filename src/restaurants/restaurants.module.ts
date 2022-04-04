@@ -4,6 +4,8 @@ import * as mongoosSlugGenerator from 'mongoose-slug-generator';
 
 import { MongoSharedModule } from 'src/mongo-shared/mongo-shared.module';
 import { UsersModule } from 'src/users/users.module';
+import { RestaurantsController } from './restaurants.controller';
+import { RestaurantsService } from './restaurants.service';
 import { Restaurant, RestaurantSchema } from './schemas/restaurant.schema';
 
 @Module({
@@ -24,7 +26,7 @@ import { Restaurant, RestaurantSchema } from './schemas/restaurant.schema';
     MongoSharedModule,
     UsersModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [RestaurantsController],
+  providers: [RestaurantsService],
 })
 export class RestaurantsModule {}
