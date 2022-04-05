@@ -1,0 +1,68 @@
+# create new User request
+POST http://localhost:3333/api/v1/users
+Content-Type: application/json
+Accept: application/json
+
+{
+	"fullName":"ahmed",
+	"favoriteCuisines":[
+        "bakery",
+        "burgers"
+	]
+}
+
+###
+# get all users
+GET http://localhost:3333/api/v1/users
+Accept: application/json
+
+### 
+# find user by id
+GET http://localhost:3333/api/users/624b2e6c2e2349daa8dc99ec
+Accept: application/json
+
+### 
+# find users by cuisine
+GET http://localhost:3333/api/v1/users/cuisine/burgers
+Accept: application/json
+
+
+##########################################################################
+# restaurants requests
+
+# create new restaurant
+POST http://localhost:3333/api/v1/restaurants
+Content-Type: application/json
+Accept: application/json
+
+{ 
+	"name":"restaurant one",
+	"cuisine":"burgers",
+	"location":{
+		"long":25.20,
+		"lat":37.56
+	},
+	"user":"624b2e6c2e2349daa8dc99ec"
+}
+
+###
+
+# get all restaurants
+GET http://localhost:3333/api/v1/restaurants
+Accept: application/json
+
+###
+
+# get restaurants nearby
+# note: you attr defaults to location and dist defaults to 1km so they can be ommited if that's the case
+# note: you can still add other query parameters for filteration and pagination if they are allowed will take effect
+GET http://localhost:3333/api/v1/restaurants?cuisine=bakery&$near={"attr":"location","long":25.2,"lat":37.55,"dist":2}
+Accept: application/json
+
+
+
+###
+# find restaurant by id or slug
+GET http://localhost:3333/api/v1/restaurants/restaurant-one
+Accept: application/json
+
