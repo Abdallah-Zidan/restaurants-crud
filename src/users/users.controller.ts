@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -40,5 +41,10 @@ export class UsersController {
     const user = await this.usersService.find(id);
     if (user) return userToDto(user);
     throw new NotFoundException();
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return this.usersService.remove(id);
   }
 }

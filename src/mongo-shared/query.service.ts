@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { NearbyQuery } from './dto/nearby.dto';
 import { PaginationQuery } from './dto/pagination.dto';
 import { Model, Document } from 'mongoose';
@@ -56,7 +60,13 @@ export class QueryService {
     return model.findOne(query);
   }
 
-  private vaidObjectId(id: string) {
+  async removeById<T extends Document>(id: string, model: Model<T>) {
+    if (!this.vaidObjectId(id))
+      throw new UnprocessableEntityException(['invalid user id']);
+    return model.deleteOne({ _id: id });
+  }
+
+  vaidObjectId(id: string) {
     return id.match(/^[0-9a-fA-F]{24}$/);
   }
 

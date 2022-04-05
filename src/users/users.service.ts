@@ -33,6 +33,10 @@ export class UsersService {
     );
   }
 
+  async remove(id: string) {
+    return this.queryService.removeById(id, this.userModel);
+  }
+
   async byCuisine(cuisine: string, { page, perPage }: PaginationQuery) {
     /**
      ** an aggregate to get user if they have the provided cuisine in their favorite cuisine

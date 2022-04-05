@@ -48,6 +48,10 @@ export class RestaurantsService {
     );
   }
 
+  async remove(id: string) {
+    return this.queryService.removeById(id, this.restaurantModel);
+  }
+
   //! this method throw a validation error in case user doesn't exist
   private async findUserOrThrow(id: string) {
     const user = await this.userService.find(id);

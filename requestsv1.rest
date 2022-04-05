@@ -26,6 +26,9 @@ Accept: application/json
 GET http://localhost:3333/api/v1/users/cuisine/burgers
 Accept: application/json
 
+###
+# remove restaurant
+DELETE  http://localhost:3333/api/v1/users/624bb9227b968424252ad4d1
 
 ##########################################################################
 # restaurants requests
@@ -66,3 +69,6 @@ Accept: application/json
 GET http://localhost:3333/api/v1/restaurants/restaurant-one
 Accept: application/json
 
+###
+# remove restaurant
+DELETE  http://localhost:3333/api/v1/restaurants/624bb9227b968424252ad4d1

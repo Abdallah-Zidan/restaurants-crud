@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -31,5 +32,10 @@ export class RestaurantsController {
     const restaurant = await this.restaurantService.find(id);
     if (restaurant) return restaurantToDto(restaurant);
     throw new NotFoundException();
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return this.restaurantService.remove(id);
   }
 }
