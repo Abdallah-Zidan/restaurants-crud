@@ -31,6 +31,6 @@ export class NearbyQuery {
 
   @IsString()
   @IsOptional()
-  @Length(1, 255)
+  @Length(1, 30)
   attr = 'location';
 }

@@ -4,6 +4,6 @@ import { PaginationQuery } from 'src/mongo-shared/dto/pagination.dto';
 export class UsersSearchQuery extends PaginationQuery {
   //* here any allowed attributes to filter with can be added like the following
   //   @IsString()
-  //   @Length(1, 255)
+  //   @Length(2, 100)
   //   name: string;
 }
