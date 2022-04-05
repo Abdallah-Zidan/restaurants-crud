@@ -7,6 +7,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { PaginationQuery } from 'src/mongo-shared/dto/pagination.dto';
 import { UsersSearchQuery } from './dto/search';
 import { UserDto } from './dto/user.dto';
 import { userToDto } from './transformers/user';
@@ -27,8 +28,11 @@ export class UsersController {
   }
 
   @Get('cuisine/:cuisine')
-  async getByCuisine(@Param('cuisine') cuisine: string) {
-    return await this.usersService.byCuisine(cuisine);
+  async getByCuisine(
+    @Param('cuisine') cuisine: string,
+    @Query() query: PaginationQuery,
+  ) {
+    return await this.usersService.byCuisine(cuisine, query);
   }
 
   @Get(':id')

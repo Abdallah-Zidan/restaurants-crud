@@ -1,4 +1,4 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { NearbyQuery } from './dto/nearby.dto';
 import { PaginationQuery } from './dto/pagination.dto';
 import { Model, Document } from 'mongoose';
@@ -22,13 +22,16 @@ export class QueryService {
   ) {
     const { page, perPage } = query;
     transformFn = transformFn ?? ((doc) => doc);
-
     const data = await model
       .find(query)
       .limit(perPage)
       .skip((page - 1) * perPage)
       .transform(transformFn);
 
+    return this.withPaginationMeta(data, query);
+  }
+
+  withPaginationMeta(data: any[], { page, perPage }: PaginationQuery) {
     return {
       data,
       count: data.length,
@@ -68,8 +71,10 @@ export class QueryService {
   }
 
   private buildNearFilter(query: NearbyQuery) {
+    //! if the target attribute doesn't allow geospatial queries then
+    //! throws bad request exception to avoid quering a non geoJson attribute by mistake
     if (!this.geoSpatialAttributes.includes(query.attr))
-      throw new UnprocessableEntityException([
+      throw new BadRequestException([
         'the near by attribute is not a location',
       ]);
     return {

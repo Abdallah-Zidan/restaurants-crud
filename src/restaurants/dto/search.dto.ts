@@ -5,14 +5,26 @@ import {
   IsObject,
   IsOptional,
   IsString,
+  Length,
   ValidateNested,
 } from 'class-validator';
 import { NearbyQuery } from '../../mongo-shared/dto/nearby.dto';
 import { PaginationQuery } from '../../mongo-shared/dto/pagination.dto';
 
+/**
+ ** DTO that specifies the shape of restaurants queries
+ ** you can add extra properties with their validation rules
+ ** and query service will transform them into mongo query
+ */
 export class SearchRestaurantsQuery extends PaginationQuery {
+  // @IsString()
+  // @IsOptional()
+  // @Length(2, 100)
+  // name?: string;
+
   @IsString()
   @IsOptional()
+  @Length(2, 100)
   cuisine?: string;
 
   @IsOptional()
@@ -21,7 +33,7 @@ export class SearchRestaurantsQuery extends PaginationQuery {
   @IsNotEmptyObject()
   @Transform((param) => plainToInstance(NearbyQuery, param.value))
   @ValidateNested()
-  $near?: NearbyQuery;
+  $near?: NearbyQuery; //*must be a valid nearby query as specified in NearbyQuery class
 }
 
 function parseJson(json: string | object) {

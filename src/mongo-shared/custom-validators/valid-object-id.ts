@@ -3,7 +3,10 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-
+/**
+ ** a custom validator to check that the provided attribute value is a valid
+ ** mongodb object id
+ */
 @ValidatorConstraint({ name: 'IsValidObjectId', async: false })
 export class IsValidObjectId implements ValidatorConstraintInterface {
   validate(value: string): boolean {

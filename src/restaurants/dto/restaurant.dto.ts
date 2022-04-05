@@ -15,12 +15,12 @@ import { LocationDto } from './location.dto';
 export class RestaurantDto {
   @IsNotEmpty()
   @IsString()
-  @Length(2, 255)
+  @Length(2, 100)
   name: string;
 
   @IsNotEmpty()
   @IsString()
-  @Length(2, 255)
+  @Length(2, 100)
   cuisine: string;
 
   @IsDefined()
@@ -31,6 +31,6 @@ export class RestaurantDto {
   location: LocationDto;
 
   @IsString()
-  @Validate(IsValidObjectId)
+  @Validate(IsValidObjectId) //* must be a valid object id
   user: string;
 }
